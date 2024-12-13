@@ -5,6 +5,12 @@ import { InMemoryDatasource } from 'src/datasources/in-memory.datasource/in-memo
 
 @Module({
   controllers: [TasksController],
-  providers: [TasksService, InMemoryDatasource]
+  providers: [
+    TasksService,
+    {
+      provide: 'TaskDatasource',  // Use the interface to bind the implementation
+      useClass: InMemoryDatasource, // Make sure InMemoryDatasource implements TaskDatasource interface
+    },
+  ]
 })
 export class TasksModule {}

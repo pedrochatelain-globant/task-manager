@@ -1,16 +1,17 @@
 import { Injectable } from '@nestjs/common';
+import { TaskDatasource } from 'src/tasks/interfaces/task-datasource.interface';
 
 @Injectable()
-export class InMemoryDatasource {
-
+export class InMemoryDatasource implements TaskDatasource{
+    
     private tasks: String[] = ["task 1", "task 2 ", "task 3"]
     
-    public addTask(task: String) {
-        this.tasks.push(task)
+    async findAll(): Promise<String[]> {
+        return this.tasks
     }
 
-    public getTasks(): String[] {
-        return this.tasks
+    public addTask(task: String) {
+        this.tasks.push(task)
     }
 
 }

@@ -1,17 +1,17 @@
-import { Injectable } from '@nestjs/common';
-import { InMemoryDatasource } from 'src/datasources/in-memory.datasource/in-memory.datasource';
+import { Inject, Injectable } from '@nestjs/common';
+import { TaskDatasource } from './interfaces/task-datasource.interface';
 
 @Injectable()
 export class TasksService {
 
-    constructor(private readonly dataSource: InMemoryDatasource) {}
+    constructor(@Inject('TaskDatasource') private readonly dataSource: TaskDatasource) {}
 
-    public getTasks(): String[] {
-        return this.dataSource.getTasks()
+    async getTasks(): Promise<String[]> {
+        return this.dataSource.findAll()
     }
 
-    public addTask(task: String): void {
-        this.dataSource.addTask(task)
-    }
+    // public addTask(task: String): void {
+    //     this.dataSource.addTask(task)
+    // }
 
 }
