@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { TaskDatasource } from './interfaces/task-datasource.interface';
+import { ResponseCreateTaskDTO } from './dtos/response-create-task.dto';
 
 @Injectable()
 export class TasksService {
@@ -10,8 +11,8 @@ export class TasksService {
         return this.dataSource.findAll()
     }
 
-    // public addTask(task: String): void {
-    //     this.dataSource.addTask(task)
-    // }
+    public addTask(task: String): Promise<ResponseCreateTaskDTO> {
+        return this.dataSource.create(task)
+    }
 
 }
